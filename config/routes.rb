@@ -1,4 +1,8 @@
 Hangout::Application.routes.draw do
+  resources :messages
+
+  resources :hangout_events
+
   root :to => "welcome#home"
   resources :users
   resources :sessions
