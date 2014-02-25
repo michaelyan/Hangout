@@ -1,3 +1,17 @@
 README
 
 Hangout is an app where friends can create and join hangouts and plan what they want to do for the day. They can vote and discuss the events that they want to participate in all ideas are in one central location.
+
+Homework 3:
+
+User:
+
+Users represent the users of the site, with standard fields such as name, email, etc. Users have many messages which may be distributed among many hangouts. They are also part  of hangouts and can be the host of the hangout, part of the hangout, or a pending user of the hangout. Users can also send Messages as part of a Hangout_Event
+
+Message:
+
+Messages represent the messages users send in a Hangout_Event. Hangout_Events aggregate messages and each message also belongs to a user.
+
+Hangout_Event:
+
+A Hangout_Event is basically an aggregation of Users and Messages. A Hangout_Event is created and a user can become the host of the Hangout_Event and invite people, who become pending_users. Once a user accepts, they become attendees. Users can also chat with each other once they join the Hangout_Event and send Messages.  
