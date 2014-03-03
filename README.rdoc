@@ -15,3 +15,9 @@ Messages represent the messages users send in a Hangout_Event. Hangout_Events ag
 Hangout_Event:
 
 A Hangout_Event is basically an aggregation of Users and Messages. A Hangout_Event is created and a user can become the host of the Hangout_Event and invite people, who become pending_users. Once a user accepts, they become attendees. Users can also chat with each other once they join the Hangout_Event and send Messages.  
+
+Homework 4:
+
+Created a rake task that imports Firehouse data into the database. Can be invoked by calling:
+
+rake michael_space:import_data
