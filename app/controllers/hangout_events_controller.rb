@@ -69,6 +69,6 @@ class HangoutEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hangout_event_params
-      params.require(:hangout_event).permit(:name, :date, :start_time, :endtime)
+      params.require(:hangout_event).permit(:name, :date, :start_time, :end_time)
     end
 end

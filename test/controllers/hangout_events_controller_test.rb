@@ -18,7 +18,7 @@ class HangoutEventsControllerTest < ActionController::TestCase
 
   test "should create hangout_event" do
     assert_difference('HangoutEvent.count') do
-      post :create, hangout_event: { date: @hangout_event.date, endtime: @hangout_event.endtime, name: @hangout_event.name, start_time: @hangout_event.start_time }
+      post :create, hangout_event: { date: @hangout_event.date, end_time: @hangout_event.end_time, name: @hangout_event.name, start_time: @hangout_event.start_time }
     end
 
     assert_redirected_to hangout_event_path(assigns(:hangout_event))
@@ -35,7 +35,7 @@ class HangoutEventsControllerTest < ActionController::TestCase
   end
 
   test "should update hangout_event" do
-    patch :update, id: @hangout_event, hangout_event: { date: @hangout_event.date, endtime: @hangout_event.endtime, name: @hangout_event.name, start_time: @hangout_event.start_time }
+    patch :update, id: @hangout_event, hangout_event: { date: @hangout_event.date, end_time: @hangout_event.end_time, name: @hangout_event.name, start_time: @hangout_event.start_time }
     assert_redirected_to hangout_event_path(assigns(:hangout_event))
   end
 

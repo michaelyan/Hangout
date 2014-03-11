@@ -11,7 +11,6 @@ class HangoutEvent
   field :start_time, type: Time
   field :end_time, type: Time
 
-  validates :name, :date, :presence => { :message => "You must provide a name and date." }
-  validates :start_time, :numericality => { :less_than_or_equal_to => :end_time }
-  validates :end_time, :numericality => { :greater_than_or_equal_to => :start_time }
+  validates :name, :presence => { :message => "You must provide a name." }
+  validates :date, :presence => { :message => "You must provide a date." }
 end

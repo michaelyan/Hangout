@@ -4,10 +4,10 @@ one:
   name: MyString
   date: 
   start_time: 
-  endtime: 2014-02-24 18:51:08
+  end_time: 
 
 two:
   name: MyString
   date: 
   start_time: 
-  endtime: 2014-02-24 18:51:08
+  end_time: 

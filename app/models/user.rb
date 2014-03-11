@@ -12,4 +12,7 @@ class User
   field :fb_id, type: Integer
   field :username, type: String
   field :password, type: String
+
+  validates :email, format: { with: /.+@.+\..+/i }
+  validates :password, length: {minimum: 6}
 end
