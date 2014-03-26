@@ -2,9 +2,9 @@ class User
   include Mongoid::Document
 
   has_many :messages
-  embedded_in :hosts, polymorphic: true
-  embedded_in :attendees, polymorphic: true
-  embedded_in :pending_users, polymorphic: true
+  has_and_belongs_to_many :host_of, inverse_of: :hosts, class_name: "HangoutEvent"
+  has_and_belongs_to_many :attendee_of, inverse_of: :attendees, class_name: "HangoutEvent"
+  has_and_belongs_to_many :invitee_of, inverse_of: :invitees, class_name: "HangoutEvent"
 
   field :first_name, type: String
   field :last_name, type: String
@@ -15,4 +15,8 @@ class User
 
   validates :email, format: { with: /.+@.+\..+/i }
   validates :password, length: {minimum: 6}
+
+  def full_name
+    return self.first_name + " " + self.last_name
+  end
 end

@@ -20,5 +20,36 @@
   <%= @hangout_event.end_time %>
 </p>
 
+<p>
+    <strong>Attendees:</strong>
+    <% @hangout_event.attendees.each do |attendee|%>
+    <div><%= attendee.first_name %></div>
+    <% end %>
+</p>
+
+<p>
+    <strong>Messages:</strong>
+    <div id="messages">
+      <% @hangout_event.messages.each do |message|%>
+      <span>User: <%= User.find(message.user_id).full_name %></span>
+      <span><%= message.text %></span>
+      <span><%= message.timestamp.strftime("%m/%d/%Y %I:%m%p") %></span><br />
+      <% end %>
+    </div>
+
+    <%= form_for(Message.new, remote: true) do |f| %>
+      <div class="field">
+        <%= f.label :text %><br>
+        <%= f.text_field :text %>
+      </div>
+      <input name="hangout_id" type="hidden" value=<%= params[:id] %> /> 
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
+</p>
+
 <%= link_to 'Edit', edit_hangout_event_path(@hangout_event) %> |
 <%= link_to 'Back', hangout_events_path %>
+
+<a href="/invite_users?id=<%= params[:id] %>">Invite Users</a>

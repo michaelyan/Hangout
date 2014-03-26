@@ -1,9 +1,9 @@
 class HangoutEvent
   include Mongoid::Document
 
-  embeds_many :hosts, :as => :hosts, :class_name => "User"
-  embeds_many :attendees, :as => :attendees, :class_name => "User"
-  embeds_many :pending_users, :as => :pending_users, :class_name => "User"
+  has_and_belongs_to_many :attendees, inverse_of: :attendee_of, class_name: "User"
+  has_and_belongs_to_many :hosts, inverse_of: :host_of, class_name: "User"
+  has_and_belongs_to_many :inviteees, inverse_of: :invitees_of, class_name: "User"
   has_many :messages
 
   field :name, type: String

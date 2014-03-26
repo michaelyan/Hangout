@@ -1,5 +1,5 @@
 class HangoutEventsController < ApplicationController
-  before_action :set_hangout_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_hangout_event, only: [:show, :edit, :update, :destroy, :invite]
 
   # GET /hangout_events
   # GET /hangout_events.json
@@ -59,6 +59,14 @@ class HangoutEventsController < ApplicationController
       format.html { redirect_to hangout_events_url }
       format.json { head :no_content }
     end
+  end
+
+  def invite
+    # 1. get the hangout_id
+    # 2. get all the users in the database that aren't part of the event
+    # 3. Put this in model
+    # @attendees = HangoutEvent.find(params[:id]).attendees
+    @attendees = @hangout_event.attendees
   end
 
   private

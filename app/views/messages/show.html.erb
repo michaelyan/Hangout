@@ -10,5 +10,10 @@
   <%= @message.timestamp %>
 </p>
 
+<p>
+  <strong>Hangout:</strong>
+  <%= @message.hangout_event_id%>
+</p>
+
 <%= link_to 'Edit', edit_message_path(@message) %> |
 <%= link_to 'Back', messages_path %>
