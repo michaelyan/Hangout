@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @event.name %>
+</p>
+
+<p>
+  <strong>Details:</strong>
+  <%= @event.details %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @event.location %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @event.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @event.end_time %>
+</p>
+
+<p>
+  <strong>Likes</strong>
+  <%= @event.num_upvotes %>
+  <%= link_to 'Like', event_vote_path(@event, :vote => "like") %>
+</p>
+<p>
+  <strong>Dislikes</strong>
+  <%= @event.num_downvotes %>
+  <%= link_to 'Dislike', event_vote_path(@event, :vote => "dislike") %>
+</p>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

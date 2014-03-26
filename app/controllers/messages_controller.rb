@@ -26,7 +26,7 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(message_params)
-    @message.timestamp = DateTime.now()
+    @message.timestamp = DateTime.now #time fails
     @message.hangout_event_id = params[:hangout_id]
     @message.user_id = session[:user_id]
 

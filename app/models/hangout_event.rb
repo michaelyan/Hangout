@@ -5,6 +5,7 @@ class HangoutEvent
   has_and_belongs_to_many :hosts, inverse_of: :host_of, class_name: "User"
   has_and_belongs_to_many :inviteees, inverse_of: :invitees_of, class_name: "User"
   has_many :messages
+  has_many :events
 
   field :name, type: String
   field :date, type: Date

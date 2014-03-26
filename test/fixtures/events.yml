@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  details: MyString
+  location: MyString
+  start_time: 
+  end_time: 
+
+two:
+  name: MyString
+  details: MyString
+  location: MyString
+  start_time: 
+  end_time: 

@@ -1,4 +1,6 @@
 Hangout::Application.routes.draw do
+  resources :events
+
   resources :hangout_events
 
   resources :messages
@@ -14,6 +16,8 @@ Hangout::Application.routes.draw do
   get "home" => "welcome#home", :as => 'welcome'
 
   get "/invite_users" => "hangout_events#invite", :as => "invite_users"
+
+  get "/events/:id/vote" => "events#vote", :as => "event_vote"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

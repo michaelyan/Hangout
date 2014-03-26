@@ -1,0 +1,12 @@
+TODO:
+
+1. Event comments
+2. Invite users
+3. Display created events in popup
+4. Show likes and dislikes when hover
+5. Picture in event
+6. Admin Role
+
+
+
+
