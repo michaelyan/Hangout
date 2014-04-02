@@ -25,3 +25,7 @@ rake michael_space:import_data
 Homework 5:
 
 Added validation rules in hangout_event and user models and created the navbar and sticky footer partials in application.html.erb
+
+---
+(Pull Request)
+Cool app, Michael! -Josh Itwaru
