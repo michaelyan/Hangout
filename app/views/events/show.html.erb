@@ -1,40 +1,70 @@
-<p id="notice"><%= notice %></p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= @event.name %></h3>
+  </div>
+  <div class="panel-body">
+    <div class="likes_box pull-right">
+      <%
+        @liked_users = ""
+        @disliked_users = ""
+      %>
+      <% @event.upvotes_by.each do |user| %>
+        <% @liked_users << user.full_name + "<br />"%>
+      <% end %>
+      <% @event.downvotes_by.each do |user| %>
+        <% @disliked_users << user.full_name + "<br />" %>
+      <% end %>    
+      <%= link_to image_tag("thumbs_up.png", :size => "20"), event_vote_path(@event, :vote => "like"), :remote => true, :class => "show-tooltip", :title => @liked_users, :data => {:toggle => 'show-tooltip', :html => 'true'} %><span id="event_upvotes_<%= @event.id %>"><%= @event.num_upvotes %></span>
 
-<p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-</p>
+      <br />
+      <%= link_to image_tag("thumbs_down.png", :size => "20"), event_vote_path(@event, :vote => "dislike"), :remote => true, :class => "show-tooltip", :title => @disliked_users, :data => {:toggle => 'show-tooltip', :html => 'true'} %><span id="event_downvotes_<%= @event.id %>"><%= @event.num_downvotes %></span>
+    </div>
+    <div class="pull-right" style="clear: right; padding: 5px;">
+      <%= button_to 'Edit', edit_event_path(@event), :method => :get, :class => 'btn btn-primary'  %>
+    </div>
 
-<p>
-  <strong>Details:</strong>
-  <%= @event.details %>
-</p>
+    <div>
+      <strong>Details:</strong>
+      <%= @event.details %>
+    </div>
 
-<p>
-  <strong>Location:</strong>
-  <%= @event.location %>
-</p>
+    <div>
+      <strong>Location:</strong>
+      <%= @event.location %>
+    </div>
 
-<p>
-  <strong>Start time:</strong>
-  <%= @event.start_time %>
-</p>
+    <div>
+      <strong>Start time:</strong>
+      <%= @event.start_time %>
+    </div>
 
-<p>
-  <strong>End time:</strong>
-  <%= @event.end_time %>
-</p>
+    <div>
+      <strong>End time:</strong>
+      <%= @event.end_time %>
+    </div>
 
-<p>
-  <strong>Likes</strong>
-  <%= @event.num_upvotes %>
-  <%= link_to 'Like', event_vote_path(@event, :vote => "like") %>
-</p>
-<p>
-  <strong>Dislikes</strong>
-  <%= @event.num_downvotes %>
-  <%= link_to 'Dislike', event_vote_path(@event, :vote => "dislike") %>
-</p>
+    <p>
+      <strong>Comments:</strong><br/>
+      <% @event.event_comments.each do |comment|%>
+        <span><%= User.find(comment.user_id).full_name %>: </span>
+        <span><%= comment.text %></span><br/>
+      <% end %> 
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+      <!-- Create a form with an absolute URL and put in routes then create the object -->
+      <%= form_tag(event_comment_path) do %>
+        <div class="field">
+          <%= text_field_tag :text %>
+        </div>
+        <input name="event_id" type="hidden" value=<%= @event.id %> /> 
+        <div class="actions">
+          <%= submit_tag "Add Comment" %>
+        </div>
+      <% end %>
+
+    </p>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.show-tooltip').tooltip()
+</script>

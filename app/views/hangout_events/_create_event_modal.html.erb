@@ -1,0 +1,40 @@
+<%= render partial: "layouts/modal_header", locals: {id: "create_event", title: "Create Event"} %>
+  <%= form_for(Event.new) do |f| %>
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :details %><br>
+      <%= f.text_field :details %>
+    </div>
+    <div class="field">
+      <%= f.label :location %><br>
+      <%= f.text_field :location %>
+    </div>
+
+    <span>Start Time</span>
+    <div class='input-group date' id='foo'>
+      <%= f.text_field :start_time, class: "form-control" %>
+      </span>
+    </div>
+
+    <span>End Time</span>
+    <div class='input-group date' id='foo'>
+      <%= f.text_field :end_time, class: "form-control" %>
+      </span>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    <input name="hangout_id" type="hidden" value=<%= params[:id] %> /> 
+  <% end %>
+  <script type = 'text/javascript'>
+  $('#event_start_time').datetimepicker({
+    pickDate: false
+  });
+  $('#event_end_time').datetimepicker({
+    pickDate: false
+  });
+  </script>
+<%= render 'layouts/modal_footer' %>

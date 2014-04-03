@@ -1,0 +1,14 @@
+<%= render partial: "layouts/modal_header", locals: {id: "invite_user", title: "Invite Users"} %>
+
+<h2>Available</h2>
+
+<%= form_tag("/invite_users", :method => "post") do %>
+<input name="hangout_id" type="hidden" value=<%= params[:id] %> /> 
+<ul style="list-style-type: none;">
+<% @hangout_event.invitable_users.each do |u| %> 
+    <li> <%= check_box_tag  "invited_users[]", u.id %> <%= u.full_name %>  </li>
+<%end%>
+</ul>
+<%= submit_tag("Invite", :class=>"btn btn-success") %>
+<%end %>
+<%= render 'layouts/modal_footer' %>

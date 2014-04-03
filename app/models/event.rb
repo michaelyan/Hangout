@@ -8,22 +8,23 @@ class Event
 
   belongs_to :hangout_event
   embeds_many :event_votes
+  embeds_many :event_comments
 
   def upvote_or_downvote(upvote_or_downvote, user_id)
-    for vote in self.event_votes
+    self.event_votes.each do |vote|
       if vote.user_id == user_id 
-        if upvote_or_downvote == vote.vote #user voted the same way
+        if upvote_or_downvote == vote.up #user voted the same way
           vote.destroy
           return
-        elsif upvote_or_downvote != vote.vote #user changed their vote
+        elsif upvote_or_downvote != vote.up #user changed their vote
           vote.destroy
-          self.event_votes.create(vote: upvote_or_downvote, user_id: user_id)
+          self.event_votes.create(up: upvote_or_downvote, user_id: user_id)
           return
         end
       end
     end
     #otherwise it is a new vote
-    self.event_votes.create(vote: upvote_or_downvote, user_id: user_id)
+    self.event_votes.create(up: upvote_or_downvote, user_id: user_id)
   end
 
   def num_upvotes
@@ -37,8 +38,8 @@ class Event
   #validate upvote and downvotes one per user
   def num_upvotes_or_downvotes(upvote_or_downvote)
     num_upvotes = 0
-    for vote in self.event_votes
-      if vote.vote == true
+    self.event_votes.each do |vote|
+      if vote.up == true
         num_upvotes += 1
       end
     end
@@ -50,4 +51,27 @@ class Event
     end
   end
 
+  def add_comment(text, user_id)
+    self.event_comments.create(text: text, timestamp: DateTime.now, user_id: user_id)
+  end
+
+  def upvotes_by
+    users = []
+    self.event_votes.each do |vote|
+      if vote.up == true
+        users.push(User.find(vote.user_id))
+      end
+    end
+    return users
+  end
+
+  def downvotes_by
+    users = []
+    self.event_votes.each do |vote|
+      if vote.up == false
+        users.push(User.find(vote.user_id))
+      end
+    end
+    return users
+  end
 end

@@ -1,0 +1,23 @@
+<h1>Invite Users</h1>
+<h2>Attendees</h2>
+  <% @attendees.each do |user| %>
+  <div><%= user.full_name %></div>
+  <% end %>
+
+<h2>Invited</h2>
+  <% @invitees.each do |user| %>
+  <div><%= user.full_name %></div>
+  <% end %>
+
+<h2>Not Yet Invited</h2>
+
+
+  <%= form_tag("/invite_users", :method => "post") do %>
+  <input name="hangout_id" type="hidden" value=<%= params[:id] %> /> 
+  <ul>
+  <% @invitable_users.each do |u| %> 
+      <li> <%= check_box_tag  "invited_users[]", u.id %> <%= u.full_name %>  </li>
+  <%end%>
+  </ul>
+  <%= submit_tag("Complete Todos", :class=>"btn btn-success") %>
+  <%end %>

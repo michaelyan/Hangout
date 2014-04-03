@@ -1,33 +1,18 @@
-<h1>Listing hangout_events</h1>
+<h1 class="text-center">Hangout Events</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Date</th>
-      <th>Start time</th>
-      <th>End time</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<% @hangout_events.each do |hangout_event| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">My Hangouts</h3>
+    </div>
+    <div class="panel-body">
+      <%= button_to 'Go To Hangout', hangout_event, :method => :get, :class => 'btn btn-primary pull-right' %>
+      <strong>Name: </strong><span><%= hangout_event.name %></span><br/>
+      <strong>Date: </strong><span><%= hangout_event.date.strftime("%m/%d/%Y") %></span><br/>
+      <strong>Start Time: </strong><span><%= hangout_event.start_time.strftime("%k:%M%p") %></span><br/>
+      <strong>End Time: </strong><span><%= hangout_event.end_time %></span><br/>
+    </div>
+  </div>
+<% end %>
 
-  <tbody>
-    <% @hangout_events.each do |hangout_event| %>
-      <tr>
-        <td><%= hangout_event.name %></td>
-        <td><%= hangout_event.date %></td>
-        <td><%= hangout_event.start_time %></td>
-        <td><%= hangout_event.end_time %></td>
-        <td><%= link_to 'Show', hangout_event %></td>
-        <td><%= link_to 'Edit', edit_hangout_event_path(hangout_event) %></td>
-        <td><%= link_to 'Destroy', hangout_event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Hangout event', new_hangout_event_path %>
+<%= button_to 'New Hangout', new_hangout_event_path, :method => :get, :class => 'btn btn-primary btn-success btn-large center-block' %>

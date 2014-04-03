@@ -10,6 +10,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+    redirect_to HangoutEvent.find(@event.hangout_event_id)
   end
 
   # GET /events/new
@@ -29,7 +30,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to HangoutEvent.find(@event.hangout_event_id), notice: 'Event was successfully created.' }
         format.json { render action: 'show', status: :created, location: @event }
       else
         format.html { render action: 'new' }
@@ -62,15 +63,25 @@ class EventsController < ApplicationController
     end
   end
 
-  # make this ajax
+  # put this code in the model of the correct one
   def vote
-    vote = params[:vote]
-    if vote == "like"
-      @event.upvote_or_downvote(true, session[:user_id])
-    else
-      @event.upvote_or_downvote(false, session[:user_id])
+    respond_to do |format|
+      vote = params[:vote]
+      if vote == "like"
+        @event.upvote_or_downvote(true, session[:user_id])
+      else
+        @event.upvote_or_downvote(false, session[:user_id])
+      end
+      format.html { redirect_to @event }
+      format.js   {}
     end
-    redirect_to @event
+  end
+
+  def add_comment
+    @event = Event.find(params[:event_id])
+    comment_text = params[:text]
+    @event.add_comment(comment_text, session[:user_id])
+    redirect_to HangoutEvent.find(@event.hangout_event_id)
   end
 
   private

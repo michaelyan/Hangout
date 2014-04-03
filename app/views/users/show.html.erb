@@ -16,8 +16,8 @@
 </p>
 
 <p>
-  <strong>Fb:</strong>
-  <%= @user.fb_id %>
+  <strong>Fbid:</strong>
+  <%= @user.fbid %>
 </p>
 
 <p>
@@ -28,6 +28,11 @@
 <p>
   <strong>Password:</strong>
   <%= @user.password %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @user.role %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

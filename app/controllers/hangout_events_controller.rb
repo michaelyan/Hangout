@@ -1,5 +1,5 @@
 class HangoutEventsController < ApplicationController
-  before_action :set_hangout_event, only: [:show, :edit, :update, :destroy, :invite]
+  before_action :set_hangout_event, only: [:show, :edit, :update, :destroy, :invited]
 
   # GET /hangout_events
   # GET /hangout_events.json
@@ -25,7 +25,6 @@ class HangoutEventsController < ApplicationController
   # POST /hangout_events.json
   def create
     @hangout_event = HangoutEvent.new(hangout_event_params)
-
     respond_to do |format|
       if @hangout_event.save
         format.html { redirect_to @hangout_event, notice: 'Hangout event was successfully created.' }
@@ -61,13 +60,17 @@ class HangoutEventsController < ApplicationController
     end
   end
 
-  def invite
-    # 1. get the hangout_id
-    # 2. get all the users in the database that aren't part of the event
-    # 3. Put this in model
-    # @attendees = HangoutEvent.find(params[:id]).attendees
-    @attendees = @hangout_event.attendees
+  def invite_users
+    @hangout_event = HangoutEvent.find(params[:hangout_id])
+    if params[:invited_users].present?
+      params[:invited_users].each do |user|
+        @hangout_event.invitees.push(User.find(user))
+      end
+    end
+    redirect_to @hangout_event
   end
+
+  #if not part of the event you can't see the hangout
 
   private
     # Use callbacks to share common setup or constraints between actions.

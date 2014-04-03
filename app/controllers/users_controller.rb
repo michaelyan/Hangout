@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :admin_user, :authenticate]
+  before_action :authenticate, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
@@ -69,6 +70,14 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :fb_id, :username, :password)
+      params.require(:user).permit(:first_name, :last_name, :email, :fbid, :username, :password)
+    end
+
+    # Checks if you're viewing a user that you're not supposed to
+    def authenticate
+      if @current_user.id == @user.id  || @current_user.role == "admin"
+      else
+        render_404
+      end
     end
 end

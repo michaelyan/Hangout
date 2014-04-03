@@ -4,12 +4,17 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
+gem 'debugger', group: [:development, :test]
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
 #Use Bootstrap for styling
 gem 'bootstrap-sass', '~> 3.1.1'
+
+#Use bootstrap timepicker
+gem 'momentjs-rails', '~> 2.5.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

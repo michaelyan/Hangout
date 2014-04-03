@@ -1,79 +1,77 @@
-<p id="notice"><%= notice %></p>
+<div "hangout-event-info" style="text-align: center">
+  <div>
+    <h1><%= @hangout_event.name %></h1>
+  </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @hangout_event.name %>
-</p>
+  <div>
+    <strong>Date:</strong>
+    <%= @hangout_event.date.strftime("%m/%d/%Y") %>
+  </div>
 
-<p>
-  <strong>Date:</strong>
-  <%= @hangout_event.date %>
-</p>
+  <div>
+    <strong>Start time:</strong>
+    <%= @hangout_event.start_time.strftime("%k:%M%p") %>
+  </div>
 
-<p>
-  <strong>Start time:</strong>
-  <%= @hangout_event.start_time %>
-</p>
+  <div>
+    <strong>End time:</strong>
+    <%= @hangout_event.end_time.strftime("%k:%M%p") %>
+  </div>
+</div>
 
-<p>
-  <strong>End time:</strong>
-  <%= @hangout_event.end_time %>
-</p>
-
-<p>
-    <strong>Attendees:</strong>
-    <% @hangout_event.attendees.each do |attendee|%>
-    <div><%= attendee.first_name %></div>
-    <% end %>
-</p>
-
-<p>
-    <strong>Messages:</strong>
+<div class="col-md-4">
+    <h2>Messages:</h2>
     <div id="messages">
       <% @hangout_event.messages.each do |message|%>
-      <span>User: <%= User.find(message.user_id).full_name %></span>
-      <span><%= message.text %></span>
-      <span><%= message.timestamp.strftime("%m/%d/%Y %I:%M%p") %></span><br />
+      <strong><%= User.find(message.user_id).full_name %>:</strong>
+      <span><%= message.text %></span><br />
+      <!-- <span><%= message.timestamp.strftime("%m/%d/%Y %I:%M%p") %></span><br /> -->
       <% end %>
     </div>
 
     <%= form_for(Message.new, remote: true) do |f| %>
-      <div class="field">
-        <%= f.label :text %><br>
+      <span class="field">
         <%= f.text_field :text %>
-      </div>
+      </span>
       <input name="hangout_id" type="hidden" value=<%= params[:id] %> /> 
-      <div class="actions">
-        <%= f.submit %>
-      </div>
+      <span class="actions">
+        <%= f.submit "Send" %>
+      </span>
     <% end %>
+</div>
 
-    <strong>Events:</strong>
+  <div class="col-md-4">
+    <h2 class="text-center">Events:</h2>
+    <button class="btn btn-success btn-lg center-block" data-toggle="modal" data-target="#create_event" style="margin-bottom: 20px;">
+      Create Event
+    </button>
     <div id="events">
-      <% @hangout_event.events.each do |event|%>
-      <span><%= event.name %></span>
-      <span><%= event.details %></span><br />
+      <% @hangout_event.events.order('id DESC').each do |event|%>
+        <% @event = event %>
+        <%= render template: "events/show", locals: {event: @event} %>
       <% end %>
     </div>
+    <%= render 'create_event_modal' %>
+  </div>
 
-    <%= form_for(Event.new, remote: true) do |f| %>
-      <div class="field">
-        <%= f.label :name %><br>
-        <%= f.text_field :name %>
-      </div>
-      <div class="field">
-        <%= f.label :details %><br>
-        <%= f.text_field :details %>
-      </div>
-      <input name="hangout_id" type="hidden" value=<%= params[:id] %> /> 
-      <div class="actions">
-        <%= f.submit %>
-      </div>
+<div class="col-md-4">
+  <h3>Attendees</h3>
+    <ul>
+      <% @hangout_event.attendees.each do |user| %>
+      <li><%= user.full_name %></li>
+      <% end %>
+    </ul>
+
+  <h3>Invited</h3>
+    <ul>
+      <% @hangout_event.invitees.each do |user| %>
+      <li><%= user.full_name %></li>
     <% end %>
+    </ul>
 
-</p>
+  <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#invite_user">
+    Invite
+  </button>
+  <%= render 'invite_user_modal' %>
+</div>
 
-<%= link_to 'Edit', edit_hangout_event_path(@hangout_event) %> |
-<%= link_to 'Back', hangout_events_path %>
-
-<a href="/invite_users?id=<%= params[:id] %>">Invite Users</a>

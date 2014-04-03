@@ -26,9 +26,11 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(message_params)
-    @message.timestamp = DateTime.now #time fails
+    @message.timestamp = DateTime.now 
     @message.hangout_event_id = params[:hangout_id]
     @message.user_id = session[:user_id]
+
+    @message_name = User.find(@message.user_id).full_name
 
     respond_to do |format|
       if @message.save
