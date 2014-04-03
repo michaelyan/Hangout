@@ -26,6 +26,14 @@ Homework 5:
 
 Added validation rules in hangout_event and user models and created the navbar and sticky footer partials in application.html.erb
 
+Final Project:
+
+Added Features:
+3. Partial for a navigation menu
+4. Live Chatroom
+8. Twitter Bootstrap
+9. Javascript Requests
+
 ---
 (Pull Request)
 Cool app, Michael! -Josh Itwaru
